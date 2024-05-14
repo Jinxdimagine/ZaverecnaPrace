@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Login extends JFrame {
-
+    private JTextField username,password;
+    private JButton submit,sign;
     Login(){
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -14,8 +15,8 @@ public class Login extends JFrame {
 
     void addTextfield(){
         Panel panel=new Panel();
-        JTextField username = new JTextField();
-        JTextField password = new JTextField();
+        username = new JTextField();
+        password = new JTextField();
         JLabel TextUsername=new JLabel("Username");
         JLabel TextPassword=new JLabel("Password");
         panel.setBounds(50,50,300,80);
