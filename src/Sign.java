@@ -6,7 +6,7 @@ public class Sign extends JFrame implements ActionListener {
 
     Sign(){
         this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setBounds(200,200,600,600);
         this.setLayout(null);
         this.setVisible(true);
