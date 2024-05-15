@@ -8,7 +8,7 @@ public class Login extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBounds(200,200,600,600);
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
         addForum();
         this.setVisible(true);
     }
@@ -29,6 +29,6 @@ public class Login extends JFrame {
         panel.add(password);
         panel.add(login);
         panel.add(sign);
-        this.add(panel);
+        this.add(panel,BorderLayout.CENTER);
     }
 }
