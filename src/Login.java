@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener {
     private JTextField username,password;
     private JButton login,sign;
     Login(){
@@ -19,6 +21,8 @@ public class Login extends JFrame {
         password = new JTextField();
         login=new JButton("Login");
         sign=new JButton("Sign up");
+        login.addActionListener(this);
+        sign.addActionListener(this);
         JLabel TextUsername=new JLabel("Username");
         JLabel TextPassword=new JLabel("Password");
         panel.setBounds(100,100,400,200);
@@ -30,5 +34,10 @@ public class Login extends JFrame {
         panel.add(login);
         panel.add(sign);
         this.add(panel);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
