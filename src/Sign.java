@@ -27,6 +27,8 @@ public class Sign extends JFrame implements ActionListener {
         Password =new JTextField();
         Submit =new JButton("Submit");
         GoBack =new JButton("Go Back");
+        Submit.addActionListener(this);
+        GoBack.addActionListener(this);
         JLabel firstname=new JLabel("First Name");
         JLabel lastname=new JLabel("Last Name");
         JLabel username=new JLabel("Username");
@@ -45,6 +47,9 @@ public class Sign extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == GoBack){
+            this.dispose();
+            Login login =new Login();
+        }
     }
 }
