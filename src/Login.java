@@ -2,18 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Login extends JFrame implements ActionListener {
     private JTextField Username;
     private JPasswordField Password;
     private JButton login,sign,Show;
     private boolean showned=false;
-    Login(){
+    private Database database;
+    Login() throws IOException, ClassNotFoundException {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBounds(200,200,600,600);
         this.setLayout(null);
         addForum();
+        setDatabase(new Database());
         this.setVisible(true);
     }
 
@@ -46,7 +49,7 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == sign){
             this.dispose();
-            Sign sign1=new Sign();
+            Sign sign1=new Sign(database);
         }
         if (e.getSource() == Show){
             if (!showned) {
@@ -67,5 +70,13 @@ public class Login extends JFrame implements ActionListener {
 
     public void setShowned(boolean showned) {
         this.showned = showned;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 }

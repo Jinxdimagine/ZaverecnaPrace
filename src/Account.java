@@ -6,7 +6,7 @@ public class Account implements Serializable {
     private int id;
 
     private String UserName;
-    private String Password;
+    private char[] Password;
 
     private int Amount;
 
@@ -56,12 +56,12 @@ public class Account implements Serializable {
 
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return Password;
     }
 
-    public void setPassword(String password) throws Exception{
-        if (password.matches("^\\w{5,}$")){
+    public void setPassword(char[] password) throws Exception{
+        if (password.length >=5){
             Password = password;
         }else {
             throw new Exception("Invalid password (reguire longer than 5 characters)");

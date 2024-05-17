@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Sign extends JFrame implements ActionListener {
 
@@ -10,13 +11,15 @@ public class Sign extends JFrame implements ActionListener {
 
     private JPasswordField Password;
     private boolean showned;
+    private Database database;
 
-    Sign(){
+    Sign(Database database){
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setBounds(200,200,600,600);
         this.setLayout(null);
         addForum();
+        setDatabase(database);
         this.setVisible(true);
     }
 
@@ -57,7 +60,13 @@ public class Sign extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GoBack){
             this.dispose();
-            Login login =new Login();
+            try {
+                Login login =new Login();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == Show){
             if (!showned) {
@@ -70,6 +79,17 @@ public class Sign extends JFrame implements ActionListener {
                 setShowned(false);
             }
         }
+        if (e.getSource() ==Submit){
+            Account account=new Account();
+            try {
+                account.setFirstName(FirstName.getText());
+                account.setLastName(LastName.getText());
+                account.setUserName(UserName.getText());
+                account.setPassword(Password.getPassword());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     public boolean isShowned() {
@@ -78,5 +98,13 @@ public class Sign extends JFrame implements ActionListener {
 
     public void setShowned(boolean showned) {
         this.showned = showned;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 }

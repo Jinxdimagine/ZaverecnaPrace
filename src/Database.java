@@ -1,13 +1,17 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Database {
     private ArrayList<Account> database;
 
     Database() throws IOException, ClassNotFoundException {
+     save();
      load();
+    }
+
+    void addd(String FirstName,String LastName,String UserName,String Password){
+        Account account=new Account();
+
     }
 
     void load() throws IOException, ClassNotFoundException {
@@ -18,6 +22,14 @@ public class Database {
         }else {
             database=new ArrayList<>();
         }
+        objectInputStream.close();
+    }
+    void save() throws IOException {
+        FileOutputStream fileOutputStream=new FileOutputStream("Database.txt");
+        ObjectOutputStream objectOutputStream=new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(database);
+        objectOutputStream.flush();
+        objectOutputStream.close();
     }
 
     public ArrayList<Account> getDatabase() {

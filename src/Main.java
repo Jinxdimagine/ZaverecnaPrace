@@ -1,5 +1,10 @@
 public class Main {
     public static void main(String[] args) {
-        new Login();
+        try {
+            new Login();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
