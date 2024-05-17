@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame implements ActionListener {
-    private JTextField Username, Password;
+    private JTextField Username;
+    private JPasswordField Password;
     private JButton login,sign;
     Login(){
         this.setResizable(false);
@@ -18,7 +19,7 @@ public class Login extends JFrame implements ActionListener {
     void addForum(){
         Panel panel=new Panel();
         Username = new JTextField();
-        Password = new JTextField();
+        Password = new JPasswordField();
         login=new JButton("Login");
         sign=new JButton("Sign up");
         login.addActionListener(this);

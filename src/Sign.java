@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 
 public class Sign extends JFrame implements ActionListener {
 
-    private JTextField FirstName,LastName,UserName,Password;
+    private JTextField FirstName,LastName,UserName;
     private JButton Submit,GoBack;
+
+    private JPasswordField Password;
 
     Sign(){
         this.setResizable(false);
@@ -24,7 +26,7 @@ public class Sign extends JFrame implements ActionListener {
         FirstName = new JTextField();
         LastName = new JTextField();
         UserName = new JTextField();
-        Password =new JTextField();
+        Password =new JPasswordField();
         Submit =new JButton("Submit");
         GoBack =new JButton("Go Back");
         Submit.addActionListener(this);

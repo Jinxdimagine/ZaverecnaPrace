@@ -8,6 +8,8 @@ public class Account implements Serializable {
     private String UserName;
     private String Password;
 
+    private int Amount;
+
     public String getFirstName() {
         return FirstName;
     }
@@ -46,5 +48,13 @@ public class Account implements Serializable {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public int getAmount() {
+        return Amount;
+    }
+
+    public void setAmount(int amount) {
+        Amount = amount;
     }
 }
