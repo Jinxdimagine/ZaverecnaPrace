@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Account implements Serializable {
     private String FirstName;
@@ -30,7 +31,7 @@ public class Account implements Serializable {
     }
 
     public void setLastName(String lastName) throws Exception{
-        if (lastName.matches("FirstName = firstName;")){
+        if (lastName.matches("^[a-zA-Z]{2,}$")){
             LastName = lastName;
         }else {
             throw new Exception("Invalid Last Name");
@@ -77,5 +78,17 @@ public class Account implements Serializable {
 
     public void setAmount(int amount) {
         Amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "FirstName='" + FirstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", id=" + id +
+                ", UserName='" + UserName + '\'' +
+                ", Password=" + Arrays.toString(Password) +
+                ", Amount=" + Amount +
+                '}';
     }
 }
