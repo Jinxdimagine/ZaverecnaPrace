@@ -62,9 +62,7 @@ public class Sign extends JFrame implements ActionListener {
             this.dispose();
             try {
                 Login login =new Login();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
         }
@@ -86,6 +84,7 @@ public class Sign extends JFrame implements ActionListener {
                 account.setLastName(LastName.getText());
                 account.setUserName(UserName.getText());
                 account.setPassword(Password.getPassword());
+                database.add(account);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

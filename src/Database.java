@@ -9,9 +9,9 @@ public class Database {
      load();
     }
 
-    void addd(String FirstName,String LastName,String UserName,String Password){
-        Account account=new Account();
-
+    void add(Account account) throws Exception {
+        database.add(account);
+        save();
     }
 
     void load() throws IOException, ClassNotFoundException {
