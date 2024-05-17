@@ -6,9 +6,10 @@ import java.awt.event.ActionListener;
 public class Sign extends JFrame implements ActionListener {
 
     private JTextField FirstName,LastName,UserName;
-    private JButton Submit,GoBack;
+    private JButton Submit,GoBack,Show;
 
     private JPasswordField Password;
+    private boolean showned;
 
     Sign(){
         this.setResizable(false);
@@ -29,8 +30,12 @@ public class Sign extends JFrame implements ActionListener {
         Password =new JPasswordField();
         Submit =new JButton("Submit");
         GoBack =new JButton("Go Back");
+        Show =new JButton("Show");
+        Show.setBounds(500,227,70,30);
+        Password.setEchoChar('*');
         Submit.addActionListener(this);
         GoBack.addActionListener(this);
+        Show.addActionListener(this);
         JLabel firstname=new JLabel("First Name");
         JLabel lastname=new JLabel("Last Name");
         JLabel username=new JLabel("Username");
@@ -43,9 +48,10 @@ public class Sign extends JFrame implements ActionListener {
         panel.add(UserName);
         panel.add(password);
         panel.add(Password);
-        panel.add(GoBack);
         panel.add(Submit);
+        panel.add(GoBack);
         this.add(panel);
+        this.add(Show);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -53,5 +59,24 @@ public class Sign extends JFrame implements ActionListener {
             this.dispose();
             Login login =new Login();
         }
+        if (e.getSource() == Show){
+            if (!showned) {
+                Show.setText("Hide");
+                Password.setEchoChar((char) 0);
+                setShowned(true);
+            } else {
+                Password.setEchoChar('*');
+                Show.setText("Show");
+                setShowned(false);
+            }
+        }
+    }
+
+    public boolean isShowned() {
+        return showned;
+    }
+
+    public void setShowned(boolean showned) {
+        this.showned = showned;
     }
 }

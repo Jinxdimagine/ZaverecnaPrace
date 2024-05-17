@@ -14,16 +14,25 @@ public class Account implements Serializable {
         return FirstName;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setFirstName(String firstName) throws Exception{
+        if (firstName.matches("^[a-zA-Z]{2,}$")){
+            FirstName = firstName;
+        }else {
+            throw new Exception("Invalid First Name");
+        }
     }
 
     public String getLastName() {
         return LastName;
     }
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setLastName(String lastName) throws Exception{
+        if (lastName.matches("FirstName = firstName;")){
+            LastName = lastName;
+        }else {
+            throw new Exception("Invalid Last Name");
+        }
+
     }
 
     public int getId() {
@@ -38,16 +47,25 @@ public class Account implements Serializable {
         return UserName;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUserName(String userName) throws Exception{
+        if (userName.matches("^[a-zA-Z]{2,}$")){
+            UserName = userName;
+        }else {
+            throw new Exception("Invalid UserName");
+        }
+
     }
 
     public String getPassword() {
         return Password;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setPassword(String password) throws Exception{
+        if (password.matches("^\\w{5,}$")){
+            Password = password;
+        }else {
+            throw new Exception("Invalid password (reguire longer than 5 characters)");
+        }
     }
 
     public int getAmount() {

@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 public class Login extends JFrame implements ActionListener {
     private JTextField Username;
     private JPasswordField Password;
-    private JButton login,sign;
+    private JButton login,sign,Show;
+    private boolean showned=false;
     Login(){
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -34,14 +35,37 @@ public class Login extends JFrame implements ActionListener {
         panel.add(Password);
         panel.add(login);
         panel.add(sign);
+        Show =new JButton("Show");
+        Show.addActionListener(this);
+        Show.setBounds(500,185,70,30);
+        Password.setEchoChar('*');
+        this.add(Show);
         this.add(panel);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-      if (e.getSource() == sign){
-          this.dispose();
-          Sign sign1=new Sign();
-      }
+        if (e.getSource() == sign){
+            this.dispose();
+            Sign sign1=new Sign();
+        }
+        if (e.getSource() == Show){
+            if (!showned) {
+                Show.setText("Hide");
+                Password.setEchoChar((char) 0);
+                setShowned(true);
+            } else {
+                Password.setEchoChar('*');
+                Show.setText("Show");
+                setShowned(false);
+            }
+        }
+
+    }
+    public boolean isShowned() {
+        return showned;
+    }
+
+    public void setShowned(boolean showned) {
+        this.showned = showned;
     }
 }
