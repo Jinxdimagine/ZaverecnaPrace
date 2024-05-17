@@ -10,6 +10,9 @@ public class Account implements Serializable {
 
     private int Amount;
 
+    Account(){
+    }
+
     public String getFirstName() {
         return FirstName;
     }
