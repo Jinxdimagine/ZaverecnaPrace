@@ -5,10 +5,10 @@ import java.util.Arrays;
 public class Database implements Serializable {
     private ArrayList<Account> database = new ArrayList<>();
     Database() throws IOException, ClassNotFoundException {
-        save();
         load();
+        save();
     }
-    void add(Account account) throws IOException {
+    void add(Account account) throws IOException, ClassNotFoundException {
         if (database == null){
             account.setId(1);
         }else {
@@ -32,7 +32,7 @@ public class Database implements Serializable {
         database=(ArrayList<Account>) objectInputStream.readObject();
 
     }
-    void save() throws IOException {
+    void save() throws IOException, ClassNotFoundException {
         FileOutputStream fileOutputStream = new FileOutputStream("Database.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(database);
