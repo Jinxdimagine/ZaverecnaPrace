@@ -62,7 +62,15 @@ public class Login extends JFrame implements ActionListener {
                 setShowned(false);
             }
         }
+        if(e.getSource() ==login){
+            if (getDatabase().match(Username.getText(),Password.getPassword())){
+                System system=new System();
+            }else {
+                Username.setText("Invalid username or password");
+                Password.setText("");
+            }
 
+        }
     }
     public boolean isShowned() {
         return showned;

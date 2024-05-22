@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Database implements Serializable {
     private ArrayList<Account> database = new ArrayList<>();
@@ -15,6 +16,15 @@ public class Database implements Serializable {
         }
         database.add(account);
         save();
+    }
+
+    public boolean match(String username,char[] password){
+        for(Account account: database){
+            if (account.getUserName().matches(username)&& Arrays.equals(account.getPassword(), password)){
+                return true;
+            }
+        }
+        return false;
     }
     void load() throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream("Database.txt");
