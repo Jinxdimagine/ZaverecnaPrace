@@ -84,10 +84,18 @@ public class Sign extends JFrame implements ActionListener {
                 account.setLastName(LastName.getText());
                 account.setUserName(UserName.getText());
                 account.setPassword(Password.getPassword());
-                database.add(account);
-                System.out.println(database.getDatabase().toString());
-                this.dispose();
-                Login login=new Login();
+                if (database.add(account)){
+                    System.out.println(database.getDatabase().toString());
+                    this.dispose();
+                    Login login=new Login();
+                }else {
+                    FirstName.setText("Account already exits");
+                    LastName.setText("");
+                    UserName.setText("");
+                    Password.setText("");
+                }
+
+
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

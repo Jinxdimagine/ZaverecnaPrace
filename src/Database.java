@@ -8,14 +8,18 @@ public class Database implements Serializable {
         load();
         save();
     }
-    void add(Account account) throws IOException, ClassNotFoundException {
-        if (database == null){
-            account.setId(1);
-        }else {
-            account.setId(database.size()+1);
+    public boolean add(Account account) throws IOException, ClassNotFoundException {
+        for (Account account1 :database){
+            if (database == null){
+                account.setId(1);
+            }else {
+                account.setId(database.size()+1);
+            }
+            database.add(account);
+            save();
+            return true;
         }
-        database.add(account);
-        save();
+           return false;
     }
 
     public boolean match(String username,char[] password){

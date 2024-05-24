@@ -64,7 +64,8 @@ public class Login extends JFrame implements ActionListener {
         }
         if(e.getSource() ==login){
             if (getDatabase().match(Username.getText(),Password.getPassword())){
-                System.out.println("succes");
+                System.out.println("success");
+                Window window=new Window(database);
             }else {
                 Username.setText("Invalid username or password");
                 Password.setText("");
