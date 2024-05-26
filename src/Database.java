@@ -5,8 +5,7 @@ import java.util.Arrays;
 public class Database implements Serializable {
     private ArrayList<Account> database = new ArrayList<>();
     Database() throws IOException, ClassNotFoundException {
-        load();
-        save();
+        start();
     }
     public boolean add(Account account) throws IOException, ClassNotFoundException {
         for (Account account1 :database){
@@ -21,6 +20,15 @@ public class Database implements Serializable {
         }
            return false;
     }
+    private void start() throws IOException, ClassNotFoundException {
+        FileReader fr = new FileReader("Database.txt");
+        BufferedReader br = new BufferedReader(fr);
+        if (br.readLine() !=null){
+            load();
+        }else {
+            save();
+        }
+    }
 
     public boolean match(String username,char[] password){
         for(Account account: database){
@@ -34,7 +42,6 @@ public class Database implements Serializable {
         FileInputStream fileInputStream = new FileInputStream("Database.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         database=(ArrayList<Account>) objectInputStream.readObject();
-
     }
     void save() throws IOException, ClassNotFoundException {
         FileOutputStream fileOutputStream = new FileOutputStream("Database.txt");
