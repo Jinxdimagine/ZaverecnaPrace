@@ -8,17 +8,26 @@ public class Database implements Serializable {
         start();
     }
     public boolean add(Account account) throws IOException, ClassNotFoundException {
-        for (Account account1 :database){
-            if (database == null){
-                account.setId(1);
-            }else {
-                account.setId(database.size()+1);
+        if (!database.isEmpty()){
+            for (Account account1 :database){
+                if(account1.getFirstName().matches(account.getFirstName())&&account1.getLastName().matches(account.getLastName())){
+                    return false;
+                }else {
+                    account.setId(database.size()+1);
+                    account.setAmount(10000);
+                    database.add(account);
+                    save();
+
+                }
             }
+        }else {
+            account.setAmount(10000);
+            account.setId(database.size()+1);
             database.add(account);
             save();
             return true;
         }
-           return false;
+        return false;
     }
     private void start() throws IOException, ClassNotFoundException {
         FileReader fr = new FileReader("Database.txt");

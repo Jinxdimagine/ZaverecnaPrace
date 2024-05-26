@@ -93,6 +93,7 @@ public class Sign extends JFrame implements ActionListener {
                     LastName.setText("");
                     UserName.setText("");
                     Password.setText("");
+                    System.out.println(database.getDatabase().toString());
                 }
 
 
