@@ -12,14 +12,13 @@ public class Database implements Serializable {
             for (Account account1 :database){
                 if(account1.getFirstName().matches(account.getFirstName())&&account1.getLastName().matches(account.getLastName())){
                     return false;
-                }else {
-                    account.setId(database.size()+1);
-                    account.setAmount(10000);
-                    database.add(account);
-                    save();
-
                 }
             }
+            account.setId(database.size()+1);
+            account.setAmount(10000);
+            database.add(account);
+            save();
+            return true;
         }else {
             account.setAmount(10000);
             account.setId(database.size()+1);
@@ -27,7 +26,6 @@ public class Database implements Serializable {
             save();
             return true;
         }
-        return false;
     }
     private void start() throws IOException, ClassNotFoundException {
         FileReader fr = new FileReader("Database.txt");
