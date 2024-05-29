@@ -7,7 +7,7 @@ public class Database implements Serializable {
     Database() throws IOException, ClassNotFoundException {
         start();
     }
-    public boolean add(Account account) throws IOException, ClassNotFoundException {
+    public boolean add(Account account) throws IOException {
         if (!database.isEmpty()){
             for (Account account1 :database){
                 if(account1.getFirstName().matches(account.getFirstName())&&account1.getLastName().matches(account.getLastName())){
@@ -16,16 +16,13 @@ public class Database implements Serializable {
             }
             account.setId(database.size()+1);
             account.setAmount(10000);
-            database.add(account);
-            save();
-            return true;
         }else {
             account.setAmount(10000);
             account.setId(database.size()+1);
-            database.add(account);
-            save();
-            return true;
         }
+        database.add(account);
+        save();
+        return true;
     }
     private void start() throws IOException, ClassNotFoundException {
         FileReader fr = new FileReader("Database.txt");
@@ -50,7 +47,7 @@ public class Database implements Serializable {
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         database=(ArrayList<Account>) objectInputStream.readObject();
     }
-    void save() throws IOException, ClassNotFoundException {
+    void save() throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream("Database.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(database);
