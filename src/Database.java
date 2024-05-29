@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class Database implements Serializable {
     private ArrayList<Account> database = new ArrayList<>();
+
+    private Account account;
     Database() throws IOException, ClassNotFoundException {
         start();
     }
@@ -37,6 +39,7 @@ public class Database implements Serializable {
     public boolean match(String username,char[] password){
         for(Account account: database){
             if (account.getUserName().matches(username)&& Arrays.equals(account.getPassword(), password)){
+                setAccount(account);
                 return true;
             }
         }
@@ -59,5 +62,13 @@ public class Database implements Serializable {
 
     public void setDatabase(ArrayList<Account> database) {
         this.database = database;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

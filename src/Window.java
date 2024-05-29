@@ -6,13 +6,13 @@ public class Window extends JFrame {
 
     private Account account;
 
-    public Window(Database database,Account account) {
+    public Window(Database database) {
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setBounds(200, 200, 600, 600);
         this.setLayout(null);
         setDatabase(database);
-        setAccount(account);
+        setAccount(database.getAccount());
         this.setVisible(true);
     }
 
