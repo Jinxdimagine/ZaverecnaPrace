@@ -18,15 +18,11 @@ public class Database implements Serializable {
                     payment.setAmount(Amount);
                     payment.setSender(account);
                     payment.setReceiver(account1);
-                    payment.setTypOfPayment(TypOfPayment.SENDING);
-                    account.addPayment(payment);
-                    payment.setTypOfPayment(TypOfPayment.RECEIVING);
-                    account1.addPayment(payment);
+                    account.addPayment(payment,TypOfPayment.SENDING);
+                    account1.addPayment(payment,TypOfPayment.RECEIVING);
                     save();
                 }
-                save();
             }
-            save();
             return true;
         }else {
             System.out.println(Amount);

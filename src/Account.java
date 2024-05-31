@@ -16,12 +16,14 @@ public class Account implements Serializable {
     Account(){
     }
 
-    void addPayment(Payment payment){
-        if (payment.getTypOfPayment()==TypOfPayment.SENDING){
+    void addPayment(Payment payment,TypOfPayment typOfPayment){
+        if (typOfPayment==TypOfPayment.SENDING){
             setBalance(getBalance()- payment.getAmount());
+            payment.setTypOfPayment(TypOfPayment.SENDING);
         }
         else {
             setBalance(getBalance()+ payment.getAmount());
+            payment.setTypOfPayment(TypOfPayment.RECEIVING);
         }
         getHistory().add(payment);
     }

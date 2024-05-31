@@ -49,7 +49,6 @@ public class Window extends JFrame implements ActionListener {
         ArrayList<Account> Contacts=new ArrayList<>(database.getDatabase());
         Contacts.remove(account);
         panel.setLayout(new GridLayout(Contacts.size(), 1, 0, 0));
-
         for (Account account1 : Contacts) {
             JRadioButton jRadioButton=new JRadioButton(account1.toString());
             jRadioButton.addActionListener(this);
@@ -62,7 +61,6 @@ public class Window extends JFrame implements ActionListener {
             panel.add(jRadioButton);
         }
         panel.setBounds(250, 100, 300, 150);
-        panel.setBackground(Color.CYAN);
         Send.setBounds(20,100,100,50);
         Amount.setBounds(20,50,150,50);
         Send.addActionListener(this);
