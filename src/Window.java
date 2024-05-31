@@ -25,11 +25,12 @@ public class Window extends JFrame implements ActionListener {
     void addPanel(){
         JPanel panel=new JPanel();
         Balance=new JLabel();
-        Balance.setText(account.getAmount()+"  Kč");
+        Balance.setText(account.getBalance()+"  Kč");
         PayButton =new JButton("New Payment");
         Balance.setFont(new Font("Arial",Font.PLAIN,60));
         PayButton.setBounds(150,100,150,50);
         Balance.setBounds(50,0,400,100);
+        PayButton.addActionListener(this);
         this.add(Balance);
         this.add(PayButton);
     }
@@ -52,6 +53,8 @@ public class Window extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+       if (e.getSource() ==PayButton){
 
+       }
     }
 }

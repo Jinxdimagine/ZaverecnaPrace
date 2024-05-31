@@ -17,9 +17,9 @@ public class Database implements Serializable {
                 }
             }
             account.setId(database.size()+1);
-            account.setAmount(10000);
+            account.setBalance(10000);
         }else {
-            account.setAmount(10000);
+            account.setBalance(10000);
             account.setId(database.size()+1);
         }
         database.add(account);

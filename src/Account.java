@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Account implements Serializable {
@@ -9,7 +10,8 @@ public class Account implements Serializable {
     private String UserName;
     private char[] Password;
 
-    private int Amount;
+    private int Balance;
+    private ArrayList<Payment> History=new ArrayList<>();
 
     Account(){
     }
@@ -72,12 +74,12 @@ public class Account implements Serializable {
         }
     }
 
-    public int getAmount() {
-        return Amount;
+    public int getBalance() {
+        return Balance;
     }
 
-    public void setAmount(int amount) {
-        Amount = amount;
+    public void setBalance(int balance) {
+        Balance = balance;
     }
 
     @Override
@@ -88,7 +90,15 @@ public class Account implements Serializable {
                 ", id=" + id +
                 ", UserName='" + UserName + '\'' +
                 ", Password=" + Arrays.toString(Password) +
-                ", Amount=" + Amount +
+                ", Amount=" + Balance +
                 '}';
+    }
+
+    public ArrayList<Payment> getHistory() {
+        return History;
+    }
+
+    public void setHistory(ArrayList<Payment> history) {
+        History = history;
     }
 }
