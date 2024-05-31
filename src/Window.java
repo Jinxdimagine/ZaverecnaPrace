@@ -1,10 +1,15 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements ActionListener {
 
     private Database database;
 
     private Account account;
+    private JLabel Balance;
+    private JButton PayButton;
 
     public Window(Database database) {
         this.setResizable(false);
@@ -13,11 +18,20 @@ public class Window extends JFrame {
         this.setLayout(null);
         setDatabase(database);
         setAccount(database.getAccount());
+        addPanel();
         this.setVisible(true);
     }
 
     void addPanel(){
-        JPanel panel= new JPanel();
+        JPanel panel=new JPanel();
+        Balance=new JLabel();
+        Balance.setText(account.getAmount()+"  Kč");
+        PayButton =new JButton("New Payment");
+        Balance.setFont(new Font("Arial",Font.PLAIN,60));
+        PayButton.setBounds(150,100,150,50);
+        Balance.setBounds(50,0,400,100);
+        this.add(Balance);
+        this.add(PayButton);
     }
 
     public Database getDatabase() {
@@ -34,5 +48,10 @@ public class Window extends JFrame {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
