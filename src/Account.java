@@ -16,6 +16,15 @@ public class Account implements Serializable {
     Account(){
     }
 
+    void addPayment(Payment payment,TypOfPayment typOfPayment){
+        if (typOfPayment==TypOfPayment.SENDING){
+            setBalance(getBalance()- payment.getAmount());
+        }else {
+            setBalance(getBalance()+payment.getAmount());
+        }
+        payment.setTypOfPayment(typOfPayment);
+        getHistory().add(payment);
+    }
     public String getFirstName() {
         return FirstName;
     }

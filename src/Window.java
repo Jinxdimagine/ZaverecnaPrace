@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Formattable;
 import java.util.List;
@@ -58,6 +59,7 @@ public class Window extends JFrame implements ActionListener {
         panel.setBackground(Color.CYAN);
         Send.setBounds(20,100,100,50);
         Amount.setBounds(20,50,150,50);
+        Send.addActionListener(this);
         this.add(Send);
         this.add(Amount);
         this.add(panel);
@@ -99,14 +101,18 @@ public class Window extends JFrame implements ActionListener {
                int amount= Integer.parseInt(Amount.getText());
                for (JRadioButton jRadioButton:radioButtons){
                    if (jRadioButton.isSelected()){
-                       if (database.send(account,amount, jRadioButton.getText())){
-                           this.removeAll();
-                           this.repaint();
-                           this.addPanel();
-                           this.setVisible(true);
-                           System.out.println("payment Sucessful");
-                       }else {
-                           Amount.setText("Invalid number");
+                       try {
+                           if (database.send(account,amount, jRadioButton.getText())){
+                               this.removeAll();
+                               this.repaint();
+                               this.addPanel();
+                               this.setVisible(true);
+                               System.out.println("payment Sucessful");
+                           }else {
+                               Amount.setText("Invalid number");
+                           }
+                       } catch (IOException ex) {
+                           throw new RuntimeException(ex);
                        }
                    }
                }
