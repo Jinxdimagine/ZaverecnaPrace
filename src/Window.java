@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Formattable;
+import java.util.List;
 
 public class Window extends JFrame implements ActionListener {
 
@@ -9,8 +12,9 @@ public class Window extends JFrame implements ActionListener {
 
     private Account account;
     private JLabel Balance;
-    private JButton PayButton;
-
+    private JButton PayButton,Send;
+    private ArrayList<JRadioButton> radioButtons=new ArrayList<>();
+    private JTextField Amount;
     public Window(Database database) {
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -35,6 +39,36 @@ public class Window extends JFrame implements ActionListener {
         this.add(PayButton);
     }
 
+    void display() {
+        JPanel panel = new JPanel();
+        Amount=new JTextField(15);
+        Send=new JButton("Send");
+        Database database1 = database;
+        database1.getDatabase().remove(account);
+        panel.setLayout(new GridLayout(database1.getDatabase().size(), 1, 0, 0));
+        for (Account account1 : database1.getDatabase()) {
+            JRadioButton jRadioButton=new JRadioButton(account1.toString());
+            jRadioButton.addActionListener(this);
+            radioButtons.add(jRadioButton);
+        }
+        for (JRadioButton jRadioButton:radioButtons){
+            panel.add(jRadioButton);
+        }
+        panel.setBounds(250, 100, 300, 150);
+        panel.setBackground(Color.CYAN);
+        Send.setBounds(20,100,100,50);
+        Amount.setBounds(20,50,150,50);
+        this.add(Send);
+        this.add(Amount);
+        this.add(panel);
+    }
+    public boolean control(String text){
+        if (text.matches("^\\d+$")){
+            return true;
+        }
+        return false;
+    }
+
     public Database getDatabase() {
         return database;
     }
@@ -54,7 +88,21 @@ public class Window extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
        if (e.getSource() ==PayButton){
-
+           this.remove(Balance);
+           this.remove(PayButton);
+           this.repaint();
+           display();
+           this.setVisible(true);
        }
+       if (e.getSource()==Send){
+           if (control(Amount.getText())){
+               for (JRadioButton jRadioButton:radioButtons){
+                   if (jRadioButton.isSelected()){
+
+                   }
+               }
+           }
+       }
+
     }
 }

@@ -84,14 +84,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "FirstName='" + FirstName + '\'' +
-                ", LastName='" + LastName + '\'' +
-                ", id=" + id +
-                ", UserName='" + UserName + '\'' +
-                ", Password=" + Arrays.toString(Password) +
-                ", Amount=" + Balance +
-                '}';
+        return FirstName+"  "+LastName;
     }
 
     public ArrayList<Payment> getHistory() {
