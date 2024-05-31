@@ -9,6 +9,11 @@ public class Database implements Serializable {
     Database() throws IOException, ClassNotFoundException {
         start();
     }
+
+    public boolean send(Account account,int Amount,String receiver){
+        Payment payment=new Payment();
+        return false;
+    }
     public boolean add(Account account) throws IOException {
         if (!database.isEmpty()){
             for (Account account1 :database){

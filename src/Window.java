@@ -96,9 +96,18 @@ public class Window extends JFrame implements ActionListener {
        }
        if (e.getSource()==Send){
            if (control(Amount.getText())){
+               int amount= Integer.parseInt(Amount.getText());
                for (JRadioButton jRadioButton:radioButtons){
                    if (jRadioButton.isSelected()){
-
+                       if (database.send(account,amount, jRadioButton.getText())){
+                           this.removeAll();
+                           this.repaint();
+                           this.addPanel();
+                           this.setVisible(true);
+                           System.out.println("payment Sucessful");
+                       }else {
+                           Amount.setText("Invalid number");
+                       }
                    }
                }
            }
