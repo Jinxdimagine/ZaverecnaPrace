@@ -4,6 +4,7 @@ public class Payment {
     private Account sender;
     private Account receiver;
     private int amount;
+    private TypOfPayment typOfPayment;
 
     public Account getSender() {
         return sender;
@@ -27,5 +28,13 @@ public class Payment {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public TypOfPayment getTypOfPayment() {
+        return typOfPayment;
+    }
+
+    public void setTypOfPayment(TypOfPayment typOfPayment) {
+        this.typOfPayment = typOfPayment;
     }
 }
