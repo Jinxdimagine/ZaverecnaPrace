@@ -13,20 +13,19 @@ public class Database implements Serializable {
     public boolean send(Account account,int Amount,String receiver) throws IOException {
         if (account.getBalance()-Amount>=0){
             Payment payment=new Payment();
-            Account account2 = new Account();
             for (Account account1:database){
-                String[] parts=receiver.split(" ");
-                if (account1.getFirstName().equals(parts[0])&&account1.getLastName().equals(parts[1])){
-                    account2=account1;
+                if (account1.toString().equals(receiver)){
+                    payment.setAmount(Amount);
+                    payment.setSender(account);
+                    payment.setReceiver(account1);
+                    account.addPayment(payment,TypOfPayment.SENDING);
+                    account1.addPayment(payment,TypOfPayment.RECEIVING);
+                    save();
                 }
             }
-            payment.setSender(account);
-            payment.setReceiver(account2);
-            account.addPayment(payment,TypOfPayment.SENDING);
-            account2.addPayment(payment,TypOfPayment.RECEIVING);
-            save();
             return true;
         }else {
+            System.out.println(Amount);
             return false;
         }
     }

@@ -16,6 +16,7 @@ public class Window extends JFrame implements ActionListener {
     private JButton PayButton,Send;
     private ArrayList<JRadioButton> radioButtons=new ArrayList<>();
     private JTextField Amount;
+    private JPanel panel;
     public Window(Database database) {
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -28,7 +29,6 @@ public class Window extends JFrame implements ActionListener {
     }
 
     void addPanel(){
-        JPanel panel=new JPanel();
         Balance=new JLabel();
         Balance.setText(account.getBalance()+"  Kč");
         PayButton =new JButton("New Payment");
@@ -38,10 +38,12 @@ public class Window extends JFrame implements ActionListener {
         PayButton.addActionListener(this);
         this.add(Balance);
         this.add(PayButton);
+        System.out.println(account.getHistory().toString());
     }
 
     void display() {
-        JPanel panel = new JPanel();
+        ButtonGroup buttonGroup=new ButtonGroup();
+        panel = new JPanel();
         Amount=new JTextField(15);
         Send=new JButton("Send");
         Database database1 = database;
@@ -51,6 +53,7 @@ public class Window extends JFrame implements ActionListener {
             JRadioButton jRadioButton=new JRadioButton(account1.toString());
             jRadioButton.addActionListener(this);
             radioButtons.add(jRadioButton);
+            buttonGroup.add(jRadioButton);
         }
         for (JRadioButton jRadioButton:radioButtons){
             panel.add(jRadioButton);
@@ -99,25 +102,30 @@ public class Window extends JFrame implements ActionListener {
        if (e.getSource()==Send){
            if (control(Amount.getText())){
                int amount= Integer.parseInt(Amount.getText());
+               System.out.println(amount);
                for (JRadioButton jRadioButton:radioButtons){
                    if (jRadioButton.isSelected()){
                        try {
                            if (database.send(account,amount, jRadioButton.getText())){
-                               this.removeAll();
+                               this.remove(Send);
+                               this.remove(Amount);
+                               this.remove(panel);
+                               addPanel();
                                this.repaint();
-                               this.addPanel();
                                this.setVisible(true);
                                System.out.println("payment Sucessful");
                            }else {
-                               Amount.setText("Invalid number");
+
                            }
                        } catch (IOException ex) {
                            throw new RuntimeException(ex);
                        }
                    }
                }
+           }else {
+               Amount.setText("Invalid number");
            }
-       }
 
+       }
     }
 }

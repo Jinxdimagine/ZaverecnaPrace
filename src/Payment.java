@@ -1,4 +1,6 @@
-public class Payment {
+import java.io.Serializable;
+
+public class Payment implements Serializable {
 
 
     private Account sender;
@@ -36,5 +38,15 @@ public class Payment {
 
     public void setTypOfPayment(TypOfPayment typOfPayment) {
         this.typOfPayment = typOfPayment;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "sender=" + sender +
+                ", receiver=" + receiver +
+                ", amount=" + amount +
+                ", typOfPayment=" + typOfPayment +
+                '}';
     }
 }
