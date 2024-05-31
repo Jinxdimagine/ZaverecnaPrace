@@ -17,6 +17,7 @@ public class Login extends JFrame implements ActionListener {
         this.setLayout(null);
         addForum();
         setDatabase(new Database());
+        System.out.println(database.getDatabase().toString());
         this.setVisible(true);
     }
 

@@ -46,14 +46,17 @@ public class Window extends JFrame implements ActionListener {
         panel = new JPanel();
         Amount=new JTextField(15);
         Send=new JButton("Send");
-        Database database1 = database;
-        database1.getDatabase().remove(account);
-        panel.setLayout(new GridLayout(database1.getDatabase().size(), 1, 0, 0));
-        for (Account account1 : database1.getDatabase()) {
+        ArrayList<Account> Contacts=new ArrayList<>(database.getDatabase());
+        Contacts.remove(account);
+        panel.setLayout(new GridLayout(Contacts.size(), 1, 0, 0));
+
+        for (Account account1 : Contacts) {
             JRadioButton jRadioButton=new JRadioButton(account1.toString());
             jRadioButton.addActionListener(this);
-            radioButtons.add(jRadioButton);
-            buttonGroup.add(jRadioButton);
+            if (!radioButtons.contains(jRadioButton)){
+                radioButtons.add(jRadioButton);
+                buttonGroup.add(jRadioButton);
+            }
         }
         for (JRadioButton jRadioButton:radioButtons){
             panel.add(jRadioButton);
@@ -68,10 +71,7 @@ public class Window extends JFrame implements ActionListener {
         this.add(panel);
     }
     public boolean control(String text){
-        if (text.matches("^\\d+$")){
-            return true;
-        }
-        return false;
+        return text.matches("^\\d+$");
     }
 
     public Database getDatabase() {
@@ -107,20 +107,20 @@ public class Window extends JFrame implements ActionListener {
                    if (jRadioButton.isSelected()){
                        try {
                            if (database.send(account,amount, jRadioButton.getText())){
-                               this.remove(Send);
-                               this.remove(Amount);
-                               this.remove(panel);
+                               this.getContentPane().removeAll();
                                addPanel();
                                this.repaint();
                                this.setVisible(true);
                                System.out.println("payment Sucessful");
                            }else {
-
+                               Amount.setText("Invalid number");
                            }
                        } catch (IOException ex) {
                            throw new RuntimeException(ex);
                        }
-                   }
+                   }else {
+
+                   } Amount.setText("Choose Person  you want to send money");
                }
            }else {
                Amount.setText("Invalid number");

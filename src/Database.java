@@ -12,17 +12,21 @@ public class Database implements Serializable {
 
     public boolean send(Account account,int Amount,String receiver) throws IOException {
         if (account.getBalance()-Amount>=0){
-            Payment payment=new Payment();
             for (Account account1:database){
+                Payment payment=new Payment();
                 if (account1.toString().equals(receiver)){
                     payment.setAmount(Amount);
                     payment.setSender(account);
                     payment.setReceiver(account1);
-                    account.addPayment(payment,TypOfPayment.SENDING);
-                    account1.addPayment(payment,TypOfPayment.RECEIVING);
+                    payment.setTypOfPayment(TypOfPayment.SENDING);
+                    account.addPayment(payment);
+                    payment.setTypOfPayment(TypOfPayment.RECEIVING);
+                    account1.addPayment(payment);
                     save();
                 }
+                save();
             }
+            save();
             return true;
         }else {
             System.out.println(Amount);
