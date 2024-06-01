@@ -98,7 +98,6 @@ public class Sign extends JFrame implements ActionListener {
                 account.setUserName(UserName.getText());
                 account.setPassword(Password.getPassword());
                 if (database.add(account)){
-                    System.out.println(database.getDatabase().toString());
                     this.dispose();
                     Login login=new Login();
                 }else {
@@ -106,7 +105,6 @@ public class Sign extends JFrame implements ActionListener {
                     LastName.setText("");
                     UserName.setText("");
                     Password.setText("");
-                    System.out.println(database.getDatabase().toString());
                 }
 
 

@@ -26,7 +26,7 @@ public class Window extends JFrame implements ActionListener {
         this.setVisible(true);
     }
     /**
-     * Method addPanel will added Jlabel Balance and button NewPayment into frame.
+     * Method addPanel will add Jlabel Balance and button NewPayment into frame.
      * Jlabel balance will show the balance on the account.
      * */
     void addPanel(){
@@ -39,7 +39,6 @@ public class Window extends JFrame implements ActionListener {
         NewPayment.addActionListener(this);
         this.add(Balance);
         this.add(NewPayment);
-        System.out.println(account.getHistory().toString());
     }
     /**
      * Method display will add JPanel panel,JTextField Amount and Button Send.
@@ -117,7 +116,6 @@ public class Window extends JFrame implements ActionListener {
             * */
            if (control(Amount.getText())){
                int amount= Integer.parseInt(Amount.getText());
-               System.out.println(amount);
                for (JRadioButton jRadioButton:radioButtons){
                    if (jRadioButton.isSelected()){
                        try {
