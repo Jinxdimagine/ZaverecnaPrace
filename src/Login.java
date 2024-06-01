@@ -20,7 +20,9 @@ public class Login extends JFrame implements ActionListener {
         System.out.println(database.getDatabase().toString());
         this.setVisible(true);
     }
-
+    /**
+     *Method addForum will add JTextFields and buttons for user to log in into system.
+     * */
     void addForum(){
         Panel panel=new Panel();
         Username = new JTextField();
@@ -52,6 +54,9 @@ public class Login extends JFrame implements ActionListener {
             this.dispose();
             Sign sign1=new Sign(database);
         }
+        /**
+         * If button Show is pressed JPasswordFiled will reveal the text in field else it will hide the text.
+         */
         if (e.getSource() == Show){
             if (!showned) {
                 Show.setText("Hide");
@@ -63,6 +68,12 @@ public class Login extends JFrame implements ActionListener {
                 setShowned(false);
             }
         }
+        /**
+         * If button login is pressed it will take text in JtextFields and send it into databases using method match to
+         * find Account with same Username and Password.
+         * If method match will return false it means match wasn't found.
+         * Else it disposes current frame and start class window where user will be able to access functions.
+         * */
         if(e.getSource() ==login){
             if (getDatabase().match(Username.getText(),Password.getPassword())){
                 System.out.println("success");

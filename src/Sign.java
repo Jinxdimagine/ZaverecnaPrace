@@ -22,7 +22,9 @@ public class Sign extends JFrame implements ActionListener {
         setDatabase(database);
         this.setVisible(true);
     }
-
+    /**
+     * Method addForum add Jtextfields and buttons for user to register into database.
+     */
     void addForum(){
         Panel panel=new Panel();
         panel.setLayout(new GridLayout(5,2,10,10));
@@ -58,6 +60,9 @@ public class Sign extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        /**
+        * If button GoBack is pressed it will dispose current Frame and start class Login for user to login into system.
+         */
         if (e.getSource() == GoBack){
             this.dispose();
             try {
@@ -66,6 +71,9 @@ public class Sign extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
         }
+        /**
+         * If button Show is pressed JPasswordFiled will reaveal the text in field else it will hide the text.
+         */
         if (e.getSource() == Show){
             if (!showned) {
                 Show.setText("Hide");
@@ -77,6 +85,11 @@ public class Sign extends JFrame implements ActionListener {
                 setShowned(false);
             }
         }
+        /**
+         * If button Submit is pressed it will try to add the account into database.
+         * If database method add return false it means that account with same Firstname and Lastname.
+         * Also all textfields will be reset.
+         * * */
         if (e.getSource() ==Submit){
             Account account=new Account();
             try {

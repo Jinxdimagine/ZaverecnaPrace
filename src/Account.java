@@ -15,7 +15,10 @@ public class Account implements Serializable {
 
     Account(){
     }
-
+    /**
+     * Method addPayment will add payment into Arraylist History to record payments in the account.
+     * Also by typ of payment the amount of payment will be deducted from account balance or added to account.
+     * */
     void addPayment(Payment payment,TypOfPayment typOfPayment){
         if (typOfPayment==TypOfPayment.SENDING){
             setBalance(getBalance()- payment.getAmount());

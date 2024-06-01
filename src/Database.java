@@ -9,7 +9,9 @@ public class Database implements Serializable {
     Database() throws IOException, ClassNotFoundException {
         start();
     }
-
+    /**
+     *Method send is use to send money from one account into another account.
+     * */
     public boolean send(Account account,int Amount,String receiver) throws IOException {
         if (account.getBalance()-Amount>=0){
             for (Account account1:database){
@@ -29,6 +31,11 @@ public class Database implements Serializable {
             return false;
         }
     }
+    /**
+     * In method add database will try to add account into database.
+     * If database will be empty it will automatically added account into database.
+     * Else if matches is not  found it will be added into database and assigned id also balance will set on 10000.
+     * */
     public boolean add(Account account) throws IOException {
         if (!database.isEmpty()){
             for (Account account1 :database){
@@ -46,6 +53,11 @@ public class Database implements Serializable {
         save();
         return true;
     }
+    /**
+     * In method start it will check if file Database.txt is empty.
+     * if file is empty it write into file newly created Arraylist and load it back.
+     * Else it will load the file .
+     * */
     private void start() throws IOException, ClassNotFoundException {
         FileReader fr = new FileReader("Database.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -55,7 +67,9 @@ public class Database implements Serializable {
             save();
         }
     }
-
+    /**
+     * Method match is used to find account with same username and password as imported String and char array.
+     * */
     public boolean match(String username,char[] password){
         for(Account account: database){
             if (account.getUserName().matches(username)&& Arrays.equals(account.getPassword(), password)){
@@ -65,11 +79,17 @@ public class Database implements Serializable {
         }
         return false;
     }
+    /**
+     * Method load is used to load file.
+     * */
     void load() throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream("Database.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         database=(ArrayList<Account>) objectInputStream.readObject();
     }
+    /**
+     * Method load is used to write into file.
+     * */
     void save() throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream("Database.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);

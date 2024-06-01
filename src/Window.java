@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Formattable;
-import java.util.List;
 
 public class Window extends JFrame implements ActionListener {
 
@@ -13,7 +11,7 @@ public class Window extends JFrame implements ActionListener {
 
     private Account account;
     private JLabel Balance;
-    private JButton PayButton,Send;
+    private JButton NewPayment,Send;
     private ArrayList<JRadioButton> radioButtons=new ArrayList<>();
     private JTextField Amount;
     private JPanel panel;
@@ -27,20 +25,30 @@ public class Window extends JFrame implements ActionListener {
         addPanel();
         this.setVisible(true);
     }
-
+    /**
+     * Method addPanel will added Jlabel Balance and button NewPayment into frame.
+     * Jlabel balance will show the balance on the account.
+     * */
     void addPanel(){
         Balance=new JLabel();
         Balance.setText(account.getBalance()+"  Kč");
-        PayButton =new JButton("New Payment");
+        NewPayment =new JButton("New Payment");
         Balance.setFont(new Font("Arial",Font.PLAIN,60));
-        PayButton.setBounds(150,100,150,50);
+        NewPayment.setBounds(150,100,150,50);
         Balance.setBounds(50,0,400,100);
-        PayButton.addActionListener(this);
+        NewPayment.addActionListener(this);
         this.add(Balance);
-        this.add(PayButton);
+        this.add(NewPayment);
         System.out.println(account.getHistory().toString());
     }
-
+    /**
+     * Method display will add JPanel panel,JTextField Amount and Button Send.
+     * Also, it will copy database into new Arraylist Contacts and remove the account that is currently used.
+     * After that it will create Radiobutton and set the text in the buttons toString of Accounts.
+     * Also, it will check if the Radiobutton doesn't already in the ArrayList radioButtons.
+     * then it will add buttons into ButtonGroup because it allowed only  one button to be pressed.
+     * After all that buttons will be added into panel and added int frame.
+     * */
     void display() {
         ButtonGroup buttonGroup=new ButtonGroup();
         panel = new JPanel();
@@ -68,6 +76,9 @@ public class Window extends JFrame implements ActionListener {
         this.add(Amount);
         this.add(panel);
     }
+    /**
+     * Method control will check if the imported text only have numbers.
+     * */
     public boolean control(String text){
         return text.matches("^\\d+$");
     }
@@ -90,14 +101,20 @@ public class Window extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if (e.getSource() ==PayButton){
+       if (e.getSource() == NewPayment){
            this.remove(Balance);
-           this.remove(PayButton);
+           this.remove(NewPayment);
            this.repaint();
            display();
            this.setVisible(true);
        }
        if (e.getSource()==Send){
+           /**
+            *If button Send is pressed it will import text from Amount TextField and check if text only has numbers.
+            * After it will convert Text into Integer.Then it searched for button that is selected.
+            * Then it will import Account,Integer and Text into method send that return if payment was successful.
+            * If payment was successful it will remove all Components and start method addPanel.
+            * */
            if (control(Amount.getText())){
                int amount= Integer.parseInt(Amount.getText());
                System.out.println(amount);
@@ -109,9 +126,9 @@ public class Window extends JFrame implements ActionListener {
                                addPanel();
                                this.repaint();
                                this.setVisible(true);
-                               System.out.println("payment Sucessful");
+                               System.out.println("payment Successful");
                            }else {
-                               Amount.setText("Invalid number");
+                               System.out.println("payment Unsuccessful");
                            }
                        } catch (IOException ex) {
                            throw new RuntimeException(ex);
