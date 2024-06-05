@@ -144,6 +144,9 @@ public class Window extends JFrame implements ActionListener {
            }
 
        }
+       /**
+        * If button GoBack is press it will remove everything and go back to menu.
+        * */
        if (e.getSource()==GoBack){
            this.getContentPane().removeAll();
            addPanel();
