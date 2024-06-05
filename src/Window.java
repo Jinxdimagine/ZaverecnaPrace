@@ -10,11 +10,10 @@ public class Window extends JFrame implements ActionListener {
     private Database database;
 
     private Account account;
-    private JLabel Balance;
     private JButton NewPayment,Send,GoBack;
-    private ArrayList<JRadioButton> radioButtons=new ArrayList<>();
+    private ArrayList<JRadioButton> radioButtons;
     private JTextField Amount;
-    private JPanel panel;
+
     public Window(Database database) {
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -30,14 +29,14 @@ public class Window extends JFrame implements ActionListener {
      * Jlabel balance will show the balance on the account.
      * */
     void addPanel(){
-        Balance=new JLabel();
-        Balance.setText(account.getBalance()+"  Kč");
+        JLabel balance = new JLabel();
+        balance.setText(account.getBalance()+"  Kč");
         NewPayment =new JButton("New Payment");
-        Balance.setFont(new Font("Arial",Font.PLAIN,60));
+        balance.setFont(new Font("Arial",Font.PLAIN,60));
         NewPayment.setBounds(150,100,150,50);
-        Balance.setBounds(50,0,400,100);
+        balance.setBounds(50,0,400,100);
         NewPayment.addActionListener(this);
-        this.add(Balance);
+        this.add(balance);
         this.add(NewPayment);
     }
     /**
@@ -50,11 +49,12 @@ public class Window extends JFrame implements ActionListener {
      * */
     void display() {
         ButtonGroup buttonGroup=new ButtonGroup();
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         Amount=new JTextField(15);
         Send=new JButton("Send");
         GoBack=new JButton("Go Back");
         ArrayList<Account> Contacts=new ArrayList<>(database.getDatabase());
+        radioButtons=new ArrayList<>();
         Contacts.remove(account);
         panel.setLayout(new GridLayout(Contacts.size(), 1, 0, 0));
         for (Account account1 : Contacts) {
@@ -106,10 +106,10 @@ public class Window extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
        if (e.getSource() == NewPayment){
-           this.remove(Balance);
-           this.remove(NewPayment);
+           this.getContentPane().removeAll();
            this.repaint();
            display();
+           System.out.println(radioButtons.size());
            this.setVisible(true);
        }
        if (e.getSource()==Send){
