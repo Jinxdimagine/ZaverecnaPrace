@@ -60,6 +60,7 @@ public class Window extends JFrame implements ActionListener {
         for (Account account1 : Contacts) {
             JRadioButton jRadioButton=new JRadioButton(account1.toString());
             jRadioButton.addActionListener(this);
+            jRadioButton.setBackground(Color.CYAN);
             if (!radioButtons.contains(jRadioButton)){
                 radioButtons.add(jRadioButton);
                 buttonGroup.add(jRadioButton);
@@ -136,8 +137,8 @@ public class Window extends JFrame implements ActionListener {
                            throw new RuntimeException(ex);
                        }
                    }else {
-
-                   } Amount.setText("Choose Person  you want to send money");
+                       Amount.setText("Choose Person  you want to send money");
+                   }
                }
            }else {
                Amount.setText("Invalid number");

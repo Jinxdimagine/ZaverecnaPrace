@@ -10,10 +10,10 @@ public class Database implements Serializable {
         start();
     }
     /**
-     *Method send is use to send money from one account into another account.
+     *Method send is used to send money from one account into another account.
      * */
     public boolean send(Account account,int Amount,String receiver) throws IOException {
-        if (account.getBalance()-Amount>=0){
+        if (account.getBalance()-Amount>0){
             for (Account account1:database){
                 Payment payment=new Payment();
                 if (account1.toString().equals(receiver)){
@@ -33,13 +33,13 @@ public class Database implements Serializable {
     }
     /**
      * In method add database will try to add account into database.
-     * If database will be empty it will automatically added account into database.
+     * If database will be empty it will automatically add account into database.
      * Else if matches is not  found it will be added into database and assigned id also balance will set on 10000.
      * */
     public boolean add(Account account) throws IOException {
         if (!database.isEmpty()){
             for (Account account1 :database){
-                if(account1.getFirstName().matches(account.getFirstName())&&account1.getLastName().matches(account.getLastName())){
+                if(account1.getFirstName().equalsIgnoreCase(account.getFirstName())&&account1.getLastName().equalsIgnoreCase(account.getLastName())){
                     return false;
                 }
             }
