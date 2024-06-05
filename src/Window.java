@@ -11,7 +11,7 @@ public class Window extends JFrame implements ActionListener {
 
     private Account account;
     private JLabel Balance;
-    private JButton NewPayment,Send;
+    private JButton NewPayment,Send,GoBack;
     private ArrayList<JRadioButton> radioButtons=new ArrayList<>();
     private JTextField Amount;
     private JPanel panel;
@@ -53,6 +53,7 @@ public class Window extends JFrame implements ActionListener {
         panel = new JPanel();
         Amount=new JTextField(15);
         Send=new JButton("Send");
+        GoBack=new JButton("Go Back");
         ArrayList<Account> Contacts=new ArrayList<>(database.getDatabase());
         Contacts.remove(account);
         panel.setLayout(new GridLayout(Contacts.size(), 1, 0, 0));
@@ -69,11 +70,14 @@ public class Window extends JFrame implements ActionListener {
         }
         panel.setBounds(250, 100, 300, 150);
         Send.setBounds(20,100,100,50);
+        GoBack.setBounds(120,100,100,50);
         Amount.setBounds(20,50,150,50);
         Send.addActionListener(this);
+        GoBack.addActionListener(this);
         this.add(Send);
         this.add(Amount);
         this.add(panel);
+        this.add(GoBack);
     }
     /**
      * Method control will check if the imported text only have numbers.
@@ -139,6 +143,12 @@ public class Window extends JFrame implements ActionListener {
                Amount.setText("Invalid number");
            }
 
+       }
+       if (e.getSource()==GoBack){
+           this.getContentPane().removeAll();
+           addPanel();
+           this.repaint();
+           this.setVisible(true);
        }
     }
 }
