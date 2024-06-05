@@ -39,6 +39,7 @@ public class Payment implements Serializable {
     public void setTypOfPayment(TypOfPayment typOfPayment) {
         this.typOfPayment = typOfPayment;
     }
+
     @Override
     public String toString() {
         return "Payment{" +

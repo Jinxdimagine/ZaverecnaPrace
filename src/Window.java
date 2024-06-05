@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Window extends JFrame implements ActionListener {
 
@@ -30,12 +31,36 @@ public class Window extends JFrame implements ActionListener {
      * */
     void addPanel(){
         JLabel balance = new JLabel();
+        JPanel panel=new JPanel();
+        panel.setBounds(350,0,180,300);
+        panel.setLayout(new GridLayout(account.getHistory().size(), 1, 0, 0));
         balance.setText(account.getBalance()+"  Kč");
         NewPayment =new JButton("New Payment");
         balance.setFont(new Font("Arial",Font.PLAIN,60));
         NewPayment.setBounds(150,100,150,50);
         balance.setBounds(50,0,400,100);
         NewPayment.addActionListener(this);
+        for (Payment payment: account.getHistory()){
+            JPanel panel2=new JPanel();
+            panel2.setLayout(new GridLayout(1,2,0,20));
+            JLabel name=new JLabel();
+            JLabel amount=new JLabel();
+            if (payment.getTypOfPayment()==TypOfPayment.RECEIVING){
+                name.setText(payment.getSender().toString());
+                amount.setText(String.valueOf(payment.getAmount()));
+                amount.setForeground(Color.GREEN);
+            }else {
+                name.setText(payment.getReceiver().toString());
+                amount.setText(String.valueOf(payment.getAmount()));
+            }
+            name.setHorizontalAlignment(JLabel.CENTER);
+            amount.setHorizontalAlignment(JLabel.CENTER);
+            panel2.add(name);
+            panel2.add(amount);
+            panel2.setBackground(Color.lightGray);
+            panel.add(panel2);
+        }
+        this.add(panel);
         this.add(balance);
         this.add(NewPayment);
     }
@@ -145,9 +170,9 @@ public class Window extends JFrame implements ActionListener {
            }
 
        }
-       /**
-        * If button GoBack is press it will remove everything and go back to menu.
-        * */
+       /*
+         If button GoBack is press it will remove everything and go back to menu.
+         */
        if (e.getSource()==GoBack){
            this.getContentPane().removeAll();
            addPanel();

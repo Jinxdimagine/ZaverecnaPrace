@@ -24,13 +24,17 @@ public class Account implements Serializable {
         if (typOfPayment==TypOfPayment.SENDING){
             setBalance(getBalance()- payment.getAmount());
             payment.setTypOfPayment(TypOfPayment.SENDING);
+            payment.setAmount(payment.getAmount()*-1);
+            System.out.println(payment.getTypOfPayment());
         }
         else {
             setBalance(getBalance()+ payment.getAmount());
             payment.setTypOfPayment(TypOfPayment.RECEIVING);
+            System.out.println(payment.getTypOfPayment());
         }
         getHistory().add(payment);
     }
+
     public String getFirstName() {
         return FirstName;
     }
