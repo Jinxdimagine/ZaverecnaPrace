@@ -20,20 +20,22 @@ public class Account implements Serializable {
      * Also by typ of payment the amount of payment will be deducted from account balance or added to account.
      * */
     void addPayment(Payment payment,TypOfPayment typOfPayment){
-        switch (typOfPayment){
-            case SENDING -> {
-                setBalance(getBalance()- payment.getAmount());
-                payment.setTypOfPayment(TypOfPayment.SENDING);
-                payment.setAmount(payment.getAmount()*-1);
-                System.out.println(payment.getTypOfPayment());
-                getHistory().add(payment);
-            }
-            case RECEIVING -> {
-                setBalance(getBalance()+ payment.getAmount());
-                payment.setTypOfPayment(TypOfPayment.RECEIVING);
-                System.out.println(payment.getTypOfPayment());
-                getHistory().add(payment);
-            }
+        Payment payment1=new Payment();
+        payment1.setAmount(payment.getAmount());
+        payment1.setSender(payment.getSender());
+        payment1.setReceiver(payment.getReceiver());
+        if (typOfPayment ==TypOfPayment.SENDING){
+            setBalance(getBalance()- payment1.getAmount());
+            payment1.setTypOfPayment(TypOfPayment.SENDING);
+            payment1.setAmount(payment.getAmount()*-1);
+            System.out.println(payment1.getTypOfPayment());
+            getHistory().add(payment1);
+        }
+        else if (typOfPayment==TypOfPayment.RECEIVING){
+            setBalance(getBalance()+ payment1.getAmount());
+            payment1.setTypOfPayment(TypOfPayment.RECEIVING);
+            System.out.println(payment1.getTypOfPayment());
+            getHistory().add(payment1);
         }
     }
 
