@@ -45,13 +45,16 @@ public class Window extends JFrame implements ActionListener {
             panel2.setLayout(new GridLayout(1,2,0,20));
             JLabel name=new JLabel();
             JLabel amount=new JLabel();
-            if (payment.getTypOfPayment()==TypOfPayment.RECEIVING){
-                name.setText(payment.getSender().toString());
-                amount.setText(String.valueOf(payment.getAmount()));
-                amount.setForeground(Color.GREEN);
-            }else {
-                name.setText(payment.getReceiver().toString());
-                amount.setText(String.valueOf(payment.getAmount()));
+            switch (payment.getTypOfPayment()){
+                case SENDING -> {
+                    name.setText(payment.getReceiver().toString());
+                    amount.setText(String.valueOf(payment.getAmount()));
+                }
+                case RECEIVING -> {
+                    name.setText(payment.getSender().toString());
+                    amount.setText(String.valueOf(payment.getAmount()));
+                    amount.setForeground(Color.GREEN);
+                }
             }
             name.setHorizontalAlignment(JLabel.CENTER);
             amount.setHorizontalAlignment(JLabel.CENTER);

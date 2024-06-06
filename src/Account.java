@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Account implements Serializable {
 
@@ -21,18 +20,21 @@ public class Account implements Serializable {
      * Also by typ of payment the amount of payment will be deducted from account balance or added to account.
      * */
     void addPayment(Payment payment,TypOfPayment typOfPayment){
-        if (typOfPayment==TypOfPayment.SENDING){
-            setBalance(getBalance()- payment.getAmount());
-            payment.setTypOfPayment(TypOfPayment.SENDING);
-            payment.setAmount(payment.getAmount()*-1);
-            System.out.println(payment.getTypOfPayment());
+        switch (typOfPayment){
+            case SENDING -> {
+                setBalance(getBalance()- payment.getAmount());
+                payment.setTypOfPayment(TypOfPayment.SENDING);
+                payment.setAmount(payment.getAmount()*-1);
+                System.out.println(payment.getTypOfPayment());
+                getHistory().add(payment);
+            }
+            case RECEIVING -> {
+                setBalance(getBalance()+ payment.getAmount());
+                payment.setTypOfPayment(TypOfPayment.RECEIVING);
+                System.out.println(payment.getTypOfPayment());
+                getHistory().add(payment);
+            }
         }
-        else {
-            setBalance(getBalance()+ payment.getAmount());
-            payment.setTypOfPayment(TypOfPayment.RECEIVING);
-            System.out.println(payment.getTypOfPayment());
-        }
-        getHistory().add(payment);
     }
 
     public String getFirstName() {
