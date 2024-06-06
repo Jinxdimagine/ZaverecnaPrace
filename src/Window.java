@@ -11,7 +11,7 @@ public class Window extends JFrame implements ActionListener {
     private Database database;
 
     private Account account;
-    private JButton NewPayment,Send,GoBack;
+    private JButton NewPayment,Send,GoBack,LogOut;
     private ArrayList<JRadioButton> radioButtons;
     private JTextField Amount;
 
@@ -33,16 +33,19 @@ public class Window extends JFrame implements ActionListener {
         JLabel balance = new JLabel();
         JPanel panel=new JPanel();
         panel.setBounds(350,0,180,300);
-        panel.setLayout(new GridLayout(account.getHistory().size(), 1, 0, 0));
+        panel.setLayout(new GridLayout(account.getHistory().size(), 1, 0, 10));
         balance.setText(account.getBalance()+"  Kč");
         NewPayment =new JButton("New Payment");
+        LogOut=new JButton("Log Out");
         balance.setFont(new Font("Arial",Font.PLAIN,60));
         NewPayment.setBounds(150,100,150,50);
         balance.setBounds(50,0,400,100);
+        LogOut.setBounds(430,510,150,50);
         NewPayment.addActionListener(this);
+        LogOut.addActionListener(this);
         for (Payment payment: account.getHistory()){
             JPanel panel2=new JPanel();
-            panel2.setLayout(new GridLayout(1,2,0,20));
+            panel2.setLayout(new GridLayout(1,2,0,0));
             JLabel name=new JLabel();
             JLabel amount=new JLabel();
             if (payment.getTypOfPayment()==TypOfPayment.RECEIVING){
@@ -61,9 +64,11 @@ public class Window extends JFrame implements ActionListener {
             panel2.setBackground(Color.lightGray);
             panel.add(panel2);
         }
+        panel.setBackground(Color.cyan);
         this.add(panel);
         this.add(balance);
         this.add(NewPayment);
+        this.add(LogOut);
     }
     /**
      * Method display will add JPanel panel,JTextField Amount and Button Send.
@@ -135,7 +140,6 @@ public class Window extends JFrame implements ActionListener {
            this.getContentPane().removeAll();
            this.repaint();
            display();
-           System.out.println(radioButtons.size());
            this.setVisible(true);
        }
        if (e.getSource()==Send){
@@ -179,6 +183,14 @@ public class Window extends JFrame implements ActionListener {
            addPanel();
            this.repaint();
            this.setVisible(true);
+       }
+       if (e.getSource()==LogOut){
+           this.dispose();
+           try {
+               Login login=new Login();
+           } catch (IOException | ClassNotFoundException ex) {
+               throw new RuntimeException(ex);
+           }
        }
     }
 }
