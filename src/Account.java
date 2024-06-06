@@ -28,13 +28,11 @@ public class Account implements Serializable {
             setBalance(getBalance()- payment1.getAmount());
             payment1.setTypOfPayment(TypOfPayment.SENDING);
             payment1.setAmount(payment.getAmount()*-1);
-            System.out.println(payment1.getTypOfPayment());
             getHistory().add(payment1);
         }
         else if (typOfPayment==TypOfPayment.RECEIVING){
             setBalance(getBalance()+ payment1.getAmount());
             payment1.setTypOfPayment(TypOfPayment.RECEIVING);
-            System.out.println(payment1.getTypOfPayment());
             getHistory().add(payment1);
         }
     }

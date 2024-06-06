@@ -52,6 +52,7 @@ public class Window extends JFrame implements ActionListener {
             }else if (payment.getTypOfPayment()==TypOfPayment.SENDING){
                 name.setText(payment.getReceiver().toString());
                 amount.setText(String.valueOf(payment.getAmount()));
+                amount.setForeground(Color.RED);
             }
             name.setHorizontalAlignment(JLabel.CENTER);
             amount.setHorizontalAlignment(JLabel.CENTER);

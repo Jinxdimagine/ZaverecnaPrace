@@ -22,8 +22,6 @@ public class Database implements Serializable {
                     payment.setReceiver(account1);
                     account.addPayment(payment,TypOfPayment.SENDING);
                     account1.addPayment(payment,TypOfPayment.RECEIVING);
-                    System.out.println(account.getHistory().get(0).getTypOfPayment());
-                    System.out.println(account1.getHistory().get(0).getTypOfPayment());
                     save();
                 }
             }
