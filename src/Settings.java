@@ -2,17 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Settings extends JFrame implements ActionListener {
    private Account account;
     private JTextField FirstName,LastName,UserName;
     private JButton Change,GoBack,Show;
-
+    private JLabel AccountFirstName,AccountLastName,AccountUsername,AccountPassword;
     private JPasswordField Password;
     private ArrayList<JRadioButton> radioButtons;
     private Database database;
+    private boolean show;
 
    public Settings(Account account,Database database){
        this.setResizable(false);
@@ -34,18 +34,20 @@ public class Settings extends JFrame implements ActionListener {
        JLabel LabelLastName=new JLabel("Last Name :");
        JLabel LabelUsername=new JLabel("UserName :");
        JLabel LabelPassword=new JLabel("Password :");
-       JLabel AccountFirstName=new JLabel(account.getFirstName());
-       JLabel AccountLastName=new JLabel(account.getLastName());
-       JLabel AccountUsername=new JLabel(account.getUserName());
-       JLabel AccountPassword=new JLabel(String.valueOf(account.getPassword()));
+       AccountFirstName=new JLabel(account.getFirstName());
+       AccountLastName=new JLabel(account.getLastName());
+       AccountUsername=new JLabel(account.getUserName());
+       AccountPassword=new JLabel(String.valueOf(account.getPassword()));
        FirstName = new JTextField();
        LastName = new JTextField();
        UserName = new JTextField();
        Password =new JPasswordField();
        Change=new JButton("Change");
        GoBack=new JButton("Go Back");
+       Show=new JButton("Show");
        Change.addActionListener(this);
        GoBack.addActionListener(this);
+       Show.addActionListener(this);
        addJradioButtons();
        panel.add(LabelFirstName);
        panel.add(AccountFirstName);
@@ -65,6 +67,7 @@ public class Settings extends JFrame implements ActionListener {
        panel.add(radioButtons.get(3));
        panel.add(GoBack);
        panel.add(Change);
+       panel.add(Show);
        this.add(panel);
    }
     void addJradioButtons(){
@@ -80,31 +83,54 @@ public class Settings extends JFrame implements ActionListener {
            this.dispose();
            Window window=new Window(database);
        }
+       if (e.getSource()==Show){
+           if (!show) {
+               Show.setText("Hide");
+               Password.setEchoChar((char) 0);
+               setShow(true);
+           } else {
+               Password.setEchoChar('*');
+               Show.setText("Show");
+               setShow(false);
+           }
+       }
        if (e.getSource()==Change){
-           if (!FirstName.getText().equals("") && LastName.getText().equals("") && UserName.getText().equals("") && Password.getPassword() == null){
+           if (!FirstName.getText().equals("") || LastName.getText().equals("") || UserName.getText().equals("") || Password.getPassword() == null){
                try {
-                   for (int x=0;x<4;x++){
-                       if (radioButtons.get(x).isSelected()){
-                           switch (x){
+                   for (JRadioButton radioButton:radioButtons){
+                       if (radioButton.isSelected()){
+                           switch (radioButtons.indexOf(radioButton)){
                                case 0->{
                                    account.setFirstName(FirstName.getText());
+                                   AccountFirstName.setText(account.getFirstName());
+                                   System.out.println(radioButtons.indexOf(radioButton));
+                                   FirstName.setText("");
                                }
                                case 1->{
-                                  account.setLastName(LastName.getText());
+                                   account.setLastName(LastName.getText());
+                                   AccountLastName.setText(account.getLastName());
+                                   System.out.println(radioButtons.indexOf(radioButton));
+                                   LastName.setText("");
                                }
                                case 2->{
-                                  account.setUserName(UserName.getText());
+                                   account.setUserName(UserName.getText());
+                                   AccountUsername.setText(account.getUserName());
+                                   System.out.println(radioButtons.indexOf(radioButton));
+                                   UserName.setText("");
                                }
                                case 3->{
                                    account.setPassword(Password.getPassword());
+                                   AccountPassword.setText(String.valueOf(account.getPassword()));
+                                   System.out.println(radioButtons.indexOf(radioButton));
+                                   Password.setText("");
                                }
                            }
                        }
                    }
+                   database.save();
                }catch (Exception exception){
                    System.out.println(exception.getMessage());
                }
-
            }
        }
     }
@@ -123,5 +149,13 @@ public class Settings extends JFrame implements ActionListener {
 
     public void setDatabase(Database database) {
         this.database = database;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 }
