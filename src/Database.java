@@ -13,7 +13,7 @@ public class Database implements Serializable {
      *Method send is used to send money from one account into another account.
      * */
     public boolean send(Account account,int Amount,String receiver) throws IOException {
-        if (account.getBalance()-Amount>0){
+        if (account.getBalance()-Amount>=0){
             for (Account account1:database){
                 Payment payment=new Payment();
                 if (account1.toString().equals(receiver)){

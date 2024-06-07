@@ -4,14 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Window extends JFrame implements ActionListener {
 
     private Database database;
 
     private Account account;
-    private JButton NewPayment,Send,GoBack,LogOut;
+    private JButton NewPayment,Send,GoBack,LogOut,settings;
     private ArrayList<JRadioButton> radioButtons;
     private JTextField Amount;
 
@@ -22,27 +21,26 @@ public class Window extends JFrame implements ActionListener {
         this.setLayout(null);
         setDatabase(database);
         setAccount(database.getAccount());
-        addPanel();
+        addMenu();
+        addButtons();
         this.setVisible(true);
     }
     /**
-     * Method addPanel will add Jlabel Balance and button NewPayment into frame.
+     * Method addMenu will add Jlabel Balance and button NewPayment into frame.
      * Jlabel balance will show the balance on the account.
+     * Also, it will list history of payments
      * */
-    void addPanel(){
+    void addMenu(){
         JLabel balance = new JLabel();
         JPanel panel=new JPanel();
         panel.setBounds(350,0,180,300);
         panel.setLayout(new GridLayout(account.getHistory().size(), 1, 0, 10));
         balance.setText(account.getBalance()+"  Kč");
         NewPayment =new JButton("New Payment");
-        LogOut=new JButton("Log Out");
         balance.setFont(new Font("Arial",Font.PLAIN,60));
         NewPayment.setBounds(150,100,150,50);
         balance.setBounds(50,0,400,100);
-        LogOut.setBounds(430,510,150,50);
         NewPayment.addActionListener(this);
-        LogOut.addActionListener(this);
         for (Payment payment: account.getHistory()){
             JPanel panel2=new JPanel();
             panel2.setLayout(new GridLayout(1,2,0,0));
@@ -59,6 +57,8 @@ public class Window extends JFrame implements ActionListener {
             }
             name.setHorizontalAlignment(JLabel.CENTER);
             amount.setHorizontalAlignment(JLabel.CENTER);
+            name.setFont(new Font("Arial",Font.BOLD,11));
+            amount.setFont(new Font("Arial",Font.BOLD,17));
             panel2.add(name);
             panel2.add(amount);
             panel2.setBackground(Color.lightGray);
@@ -68,7 +68,17 @@ public class Window extends JFrame implements ActionListener {
         this.add(panel);
         this.add(balance);
         this.add(NewPayment);
+    }
+
+    void addButtons(){
+        settings=new JButton("Settings");
+        LogOut=new JButton("Log Out");
+        settings.setBounds(0,510,150,50);
+        LogOut.setBounds(430,510,150,50);
+        LogOut.addActionListener(this);
+        settings.addActionListener(this);
         this.add(LogOut);
+        this.add(settings);
     }
     /**
      * Method display will add JPanel panel,JTextField Amount and Button Send.
@@ -140,6 +150,7 @@ public class Window extends JFrame implements ActionListener {
            this.getContentPane().removeAll();
            this.repaint();
            display();
+           addButtons();
            this.setVisible(true);
        }
        if (e.getSource()==Send){
@@ -156,7 +167,8 @@ public class Window extends JFrame implements ActionListener {
                        try {
                            if (database.send(account,amount, jRadioButton.getText())){
                                this.getContentPane().removeAll();
-                               addPanel();
+                               addMenu();
+                               addButtons();
                                this.repaint();
                                this.setVisible(true);
                                System.out.println("payment Successful");
@@ -180,7 +192,8 @@ public class Window extends JFrame implements ActionListener {
          */
        if (e.getSource()==GoBack){
            this.getContentPane().removeAll();
-           addPanel();
+           addMenu();
+           addButtons();
            this.repaint();
            this.setVisible(true);
        }
@@ -191,6 +204,11 @@ public class Window extends JFrame implements ActionListener {
            } catch (IOException | ClassNotFoundException ex) {
                throw new RuntimeException(ex);
            }
+       }
+       if (e.getSource()==settings){
+           this.dispose();
+           Settings settings1=new Settings(account,database);
+
        }
     }
 }
