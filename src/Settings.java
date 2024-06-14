@@ -113,10 +113,15 @@ public class Settings extends JFrame implements ActionListener {
                                    LastName.setText("");
                                }
                                case 2->{
-                                   account.setUserName(UserName.getText());
-                                   AccountUsername.setText(account.getUserName());
-                                   System.out.println(radioButtons.indexOf(radioButton));
-                                   UserName.setText("");
+                                   if (!database.check(UserName.getText())){
+                                       account.setUserName(UserName.getText());
+                                       AccountUsername.setText(account.getUserName());
+                                       System.out.println(radioButtons.indexOf(radioButton));
+                                       UserName.setText("");
+                                   }else {
+                                       UserName.setText("Username is taken");
+                                   }
+
                                }
                                case 3->{
                                    account.setPassword(Password.getPassword());

@@ -79,6 +79,16 @@ public class Database implements Serializable {
         }
         return false;
     }
+
+    public boolean check(String username){
+        for(Account account: database){
+            if (account.getUserName().equals(username)){
+               setAccount(account);
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Method load is used to load file.
      * */
@@ -110,5 +120,12 @@ public class Database implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Database{" +
+                "database=" + database +
+                '}';
     }
 }

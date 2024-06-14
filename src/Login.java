@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class Login extends JFrame implements ActionListener {
-    private JTextField Username;
+    private JTextField Username,Check;
     private JPasswordField Password;
-    private JButton login,sign,Show;
+    private JButton login,sign,Show,ForgetPasswordButton,Submit,GoBack;
     private boolean showned=false;
     private Database database;
     Login() throws IOException, ClassNotFoundException {
@@ -28,25 +28,66 @@ public class Login extends JFrame implements ActionListener {
         Password = new JPasswordField();
         login=new JButton("Login");
         sign=new JButton("Sign up");
+        ForgetPasswordButton=new JButton("Forget Password");
         login.addActionListener(this);
         sign.addActionListener(this);
+        ForgetPasswordButton.addActionListener(this);
         JLabel TextUsername=new JLabel("Username");
         JLabel TextPassword=new JLabel("Password");
         panel.setBounds(100,100,400,200);
-        panel.setLayout(new GridLayout(3,2,10,10));
+        panel.setLayout(new GridLayout(4,2,10,10));
         panel.add(TextUsername);
         panel.add(Username);
         panel.add(TextPassword);
         panel.add(Password);
         panel.add(login);
         panel.add(sign);
+        panel.add(ForgetPasswordButton);
         Show =new JButton("Show");
         Show.addActionListener(this);
-        Show.setBounds(500,185,70,30);
+        Show.setBounds(500,160,70,30);
         Password.setEchoChar('*');
         this.add(Show);
         this.add(panel);
     }
+
+    void ForgetPassword(){
+        Check=new JTextField();
+        Submit=new JButton("Submit");
+        JPanel panel=new JPanel();
+        panel.setLayout(new GridLayout(2,1));
+        Submit.addActionListener(this);
+        Check.setText("Write your Username to check");
+        panel.add(Check);
+        panel.add(Submit);
+        panel.setBounds(100,100,400,200);
+        this.add(panel);
+    }
+
+    void info(char[] Password, String Username){
+        JLabel password=new JLabel();
+        JLabel username=new JLabel();
+        password.setText("Password :"+String.valueOf(Password));
+        username.setText("Username :"+Username);
+        JPanel panel=new JPanel();
+        panel.setLayout(new GridLayout(1,2,0,0));
+        panel.add(username);
+        panel.add(password);
+        panel.setBounds(100,100,400,200);
+        this.add(panel);
+    }
+
+    void Reflash(){
+        this.repaint();
+        this.setVisible(true);
+    }
+    void ButtonGoBack(){
+        GoBack=new JButton("Go Back");
+        GoBack.addActionListener(this);
+        GoBack.setBounds(480,510,100,50);
+        this.add(GoBack);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == sign){
@@ -82,7 +123,27 @@ public class Login extends JFrame implements ActionListener {
                 Username.setText("Invalid username or password");
                 Password.setText("");
             }
-
+        }
+        if (e.getSource()==ForgetPasswordButton){
+         this.getContentPane().removeAll();
+         ForgetPassword();
+         ButtonGoBack();
+         Reflash();
+        }
+        if (e.getSource()==Submit){
+            if (database.check(Check.getText())){
+                this.getContentPane().removeAll();
+                info(database.getAccount().getPassword(),database.getAccount().getUserName());
+                ButtonGoBack();
+                Reflash();
+            }else {
+                Check.setText("Invalid Username");
+            }
+        }
+        if (e.getSource()==GoBack){
+            this.getContentPane().removeAll();
+            addForum();
+            Reflash();
         }
     }
     public boolean isShowned() {
