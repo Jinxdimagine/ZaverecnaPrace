@@ -89,6 +89,10 @@ public class Database implements Serializable {
         }
         return false;
     }
+
+    void changePassword(char[] Password) throws Exception {
+        account.setPassword(Password);
+    }
     /**
      * Method load is used to load file.
      * */

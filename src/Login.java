@@ -3,11 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Login extends JFrame implements ActionListener {
     private JTextField Username,Check;
-    private JPasswordField Password;
-    private JButton login,sign,Show,ForgetPasswordButton,Submit,GoBack;
+    private JPasswordField Password,Password1;
+    private JButton login,sign,Show,ForgetPasswordButton,Submit,GoBack,Change;
     private boolean showned=false;
     private Database database;
     Login() throws IOException, ClassNotFoundException {
@@ -64,17 +65,18 @@ public class Login extends JFrame implements ActionListener {
         this.add(panel);
     }
 
-    void info(char[] Password, String Username){
-        JLabel password=new JLabel();
-        JLabel username=new JLabel();
-        password.setText("Password :"+String.valueOf(Password));
-        username.setText("Username :"+Username);
-        JPanel panel=new JPanel();
-        panel.setLayout(new GridLayout(1,2,0,0));
-        panel.add(username);
-        panel.add(password);
-        panel.setBounds(100,100,400,200);
-        this.add(panel);
+    void NewPassword(){
+       Password=new JPasswordField();
+       Password1=new JPasswordField();
+       Change=new JButton("Change");
+       JPanel panel=new JPanel();
+       panel.setLayout(new GridLayout(3,1));
+       panel.add(Password);
+       panel.add(Password1);
+       panel.add(Change);
+       panel.setBounds(100,100,400,200);
+       Change.addActionListener(this);
+       this.add(panel);
     }
 
     void Reflash(){
@@ -88,6 +90,9 @@ public class Login extends JFrame implements ActionListener {
         this.add(GoBack);
     }
 
+    public boolean CheckPassword(){
+        return Arrays.equals(Password.getPassword(), Password1.getPassword());
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == sign){
@@ -133,11 +138,26 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource()==Submit){
             if (database.check(Check.getText())){
                 this.getContentPane().removeAll();
-                info(database.getAccount().getPassword(),database.getAccount().getUserName());
+                NewPassword();
                 ButtonGoBack();
                 Reflash();
             }else {
                 Check.setText("Invalid Username");
+            }
+        }
+        if (e.getSource()==Change){
+            if (CheckPassword()){
+                try {
+                    database.changePassword(Password1.getPassword());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                this.getContentPane().removeAll();
+                addForum();
+                Reflash();
+            }
+            else {
+                Password1.setText("Password doesnt match");
             }
         }
         if (e.getSource()==GoBack){

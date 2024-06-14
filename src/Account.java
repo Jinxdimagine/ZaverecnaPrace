@@ -75,7 +75,7 @@ public class Account implements Serializable {
     }
 
     public void setUserName(String userName) throws Exception{
-        if (userName.matches("^[a-zA-Z]{2,}$")){
+        if (userName.matches("^[a-zA-Z0-9]{2,}$")){
             UserName = userName;
         }else {
             throw new Exception("Invalid UserName");
