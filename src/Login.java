@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Login extends JFrame implements ActionListener {
     private JTextField Username,Check;
     private JPasswordField Password,Password1;
-    private JButton login,sign,Show,ForgetPasswordButton,Submit,GoBack,Change;
+    private JButton login,sign,Show,ForgetPasswordButton,Submit,GoBack,Change,Show1;
     private boolean showned=false;
     private Database database;
     Login() throws IOException, ClassNotFoundException {
@@ -66,16 +66,19 @@ public class Login extends JFrame implements ActionListener {
     }
 
     void NewPassword(){
+        Show1=new JButton("Show");
        Password=new JPasswordField();
        Password1=new JPasswordField();
        Change=new JButton("Change");
        JPanel panel=new JPanel();
-       panel.setLayout(new GridLayout(3,1));
+       panel.setLayout(new GridLayout(4,1));
        panel.add(Password);
        panel.add(Password1);
        panel.add(Change);
+       panel.add(Show1);
        panel.setBounds(100,100,400,200);
        Change.addActionListener(this);
+       Show1.addActionListener(this);
        this.add(panel);
     }
 
@@ -110,6 +113,19 @@ public class Login extends JFrame implements ActionListener {
             } else {
                 Password.setEchoChar('*');
                 Show.setText("Show");
+                setShowned(false);
+            }
+        }
+        if (e.getSource() == Show1){
+            if (!showned) {
+                Show1.setText("Hide");
+                Password.setEchoChar((char) 0);
+                Password1.setEchoChar((char) 0);
+                setShowned(true);
+            } else {
+                Password.setEchoChar('*');
+                Password1.setEchoChar('*');
+                Show1.setText("Show");
                 setShowned(false);
             }
         }
